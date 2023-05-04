@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+This is cart page proceed if you are ready to order
+
+{% endblock %}
+{% block title %}
+    Cart
+{% endblock %}
+{% block content %}
+{% if not cart_items %}
+<div>
+    <div class="text-center">
+        <br>
+        <h1 class="text-center my_title">Your Food cart is empty</h1>
+        <br>
+        <p class="text-center">Please click <a href="{% url 'shop:allprodcat' %}">Here</a>To continue shopping </p>
+
+
+    </div>
+</div>
+{% else %}
+<div>
+    <div class="text-center">
+        <br>
+        <h1 class="text-center my_title"><b>Your Food Cart</b></h1>
+        <br>
+
+    </div>
+</div>
+<div class="row mx_auto">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <table class="table my_table">
+            <thead class="my_thead">
+            <tr>
+                <th colspan="5">Your Items</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for  Cart_item in cart_items %}
+            <tr>
+                <td>
+                    <a href=" Cart_item.product2.get_absolute_url"><img src="{{ Cart_item.product2.img.url}}" alt="" class="float-left rounded custom_img" style="width:200px"></a>
+                </td>
+                <td class="text-justify">
+                    <br>
+                    {{ Cart_item.product2.name}}
+                    <br>
+                    SKU: {{ Cart_item.product2.id}}
+                    <br>
+                    Price:Rs{{ Cart_item.product2.price}}
+                    <br>
+                    Qty: {{ Cart_item.quantity}} * Rs {{ Cart_item}}
+                    <br>
+                </td>
+                <td>
+                    Rs {{ Cart_item.subtotal}}
+                </td>
+                {% if  Cart_item.quantity < Cart_item.product2.stock %}
+                <td>
+                    <a href="{% url 'cart:add_cart'  Cart_item.product2.id %}" class="custom_a" ><i class="fa-regular fa-square-plus custom_icon"></i></a>
+                    &nbsp;<a href="{% url 'cart:cart_remove' Cart_item.product2.id %}" class="custom_a"><i class="fa-regular fa-square-minus custom_icon"></i></a>
+                    &nbsp;<a href="{% url 'cart:full_remove' Cart_item.product2.id %}" class="custom_a"><i class="fa-solid fa-trash-can custom_icon"></i></a>
+                </td>
+                {% else %}
+                <td>
+                    &nbsp;<a href="{% url 'cart:cart_remove' Cart_item.product2.id %}" class="custom_a"><i class="fa-regular fa-square-minus"></i></a>
+                    &nbsp;<a href="{% url 'cart:full_remove' Cart_item.product2.id %}" class="custom_a"><i class="fa-solid fa-trash-can"></i></a>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <table class="my_table">
+            <thead class="my_thead">
+            <tr>
+                <th>
+                    Checkout Here
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>
+                    <br>Please go through your order once more and finalize it
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left">
+                    Your Total is: <strong>{{ total }}</strong>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="d-grid gap-2">
+            <a href="{% url 'shop:allprodcat' %}" class="btn btn-info btn-block btn-sm">Continue Shopping</a>
+        </div><br>
+        <div class="d-grid gap-2">
+            <a href="https://razorpay.com/" class="btn btn-success btn-block btn-sm">Payment</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

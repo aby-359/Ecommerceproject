@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+      {{product1.description|truncatewords:155}}
+
+{% endblock %}
+
+{% block title %}
+    {% if c_page %}
+      {{product1.name}} - PomPom Store
+
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row my_product_row_class">
+    <div class="mx_auto">
+        <p><a href="{% url 'shop:allprodcat' %}">Home</a> | <a href="{{product1.category.get_url}}">{{product1.category}}</a>|{{product1.name}}</p>
+    </div>
+</div>
+<div class="container">
+<br>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <div style="min-width:18rem">
+            <img src="{{product1.img.url}}" alt="{{product1.name}}" width="400px">
+        </div>
+    </div>
+        <div class="col-12 col-sm-12-col-md-12 col-lg-6 text-justify">
+            <div>
+            <h1 class="my_prod_title">{{product1.name}}</h1>
+            <p>Rs {{product1.price}}</p>
+            <p class="my_title">Product Description</p>
+            <p class="text-justify my_product_text">{{product1.desc}}</p>
+            {% if product1.stock <= 0 %}
+            <p class="text-justify my_product_text"><b>Sorry Out Of Stock Will soon Restore</b></p>
+            {% else %}
+            <a  class="btn btn-success" href="{% url 'cart:add_cart' product.id %}">ADD TO CART</a>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

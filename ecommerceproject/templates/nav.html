@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#">PomPom Store</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Menu
+          </a>
+          <ul class="dropdown-menu {% if sop in request.path %} active {% endif %}" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'shop:allprodcat' %}">All products here</a></li>
+            {% for category in links %}
+            <li><a class="dropdown-item" href="{{category.get_url}}">{{category.name}}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% if item_count > 0 %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'cart:cart_detail' %}" tabindex="-1" aria-disabled="true"><i class="fa-solid fa-cart-shopping"></i> ({{item_count}})</a>
+        </li>
+        {% endif %}
+      </ul>
+      <form class="d-flex" action="{% url 'searchapp:searchresult' %}" method="get">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+    </div>
+  </div>
+</nav>

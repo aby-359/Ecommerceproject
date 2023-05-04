@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if c_page %}
+      {{c_page.description|truncatewords:155}}
+    {% else %}
+         Welcome to PomPom Store here you can buy any items with discount
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+    {% if c_page %}
+      {{c_page.name}} - PomPom Store
+    {% else %}
+         our new collections are added go through them - PomPom Store
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+   {% if c_page %}
+    <div>
+        <div class="row my_row_class">
+            <div class="mx_auto">
+        <p><a href="{% url 'shop:allprodcat' %}">PomPom Store</a></p>
+        </div>
+    </div>
+    </div>
+    {% endif %}
+    <div class="mx_auto">
+        {% if c_page %}
+        <img class="my_image" src="{{c_page.img.url}}" alt="{{category.name}}">
+    </div>
+      <br>
+    <div>
+        <h1 class="text-center  my_title">{{c_page.name}}</h1>
+        <p class="text-center">{{c_page.desc1}}</p>
+    </div>
+    {% else %}
+    <div>
+    <img class="my_image my_image_padding" src="{% static 'img/banner1.png' %}" alt="our products" width="1450px">
+    </div>
+    <br>
+     <div>
+         <h1 class="text-center my_title">Our Highlights</h1>
+         <p class="text-center  ">Juicy, ripe and bursting with flavor - our fresh fruits are hand-picked daily to ensure maximum freshness and taste.
+             From crisp apples to succulent strawberries, our fruit selection is sure to satisfy any craving for something sweet and healthy.
+             Experience the taste of nature's candy with our selection of luscious fruits, all sourced from trusted local and international growers.
+             Looking for a healthy snack on-the-go? Grab one of our pre-cut fruit cups, packed with a variety of your favorite fruits for a delicious and convenient treat.
+             Indulge in the taste of summer all year round with our tropical fruit selection, featuring exotic delights like mangoes, pineapples, and papayas.
+             From antioxidant-rich berries to vitamin-packed citrus, our fruits are not only delicious but also packed with essential nutrients to help you stay healthy and energized.
+             Bring a pop of color and flavor to your next meal with our vibrant and delicious fruit options, perfect for adding a touch of sweetness to any dish.
+             Whether you're in the mood for a refreshing smoothie or a classic fruit salad, our fruit selection is versatile and perfect for all your culinary adventures.</p>
+     </div>
+    {% endif %}
+    <div class="container-fluid">
+        <div class="row mx_auto">
+            {% for product in products.object_list %}
+        <div class="my_bottom_margin  col-md-4  col-lg-3  row row-cols-4 mt-5 col-sm-5 offset-sm-2 col-md-6 offset-md-0 ">
+            <div class="card text-center" style="min-width:18rem;">
+            <a href="{{product.get_url}}"><img class="card-img-top my_image" src="{{product.img.url}}" alt="{{product.name}}" width="500px"></a>
+            <div class="card-body">
+                <h2>{{product.name}}</h2>
+                <h4><p>{{product.price}}</p></h4>
+            </div>
+        </div>
+    </div>
+        {% endfor %}
+    </div>
+        <div class="mx_auto">
+            {% if products.paginator.num_pages > 1 %}
+
+            <hr>
+            <div class="text-center">
+                {% for pg in products.paginator.page_range %}
+                <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %} active {% endif %}}">{{pg}}</a>
+                {% endfor %}
+
+            </div>
+            {% endif %}
+        </div>
+        <br>
+</div>
+{% endblock %}
+
+

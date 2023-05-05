@@ -41,7 +41,7 @@ This is cart page proceed if you are ready to order
             {% for  Cart_item in cart_items %}
             <tr>
                 <td>
-                    <a href=" Cart_item.product2.get_absolute_url"><img src="{{ Cart_item.product2.img.url}}" alt="" class="float-left rounded custom_img" style="width:200px"></a>
+                    <a href="{{ Cart_item.product2.get_absolute_url }}"><img src="{{ Cart_item.product2.img.url }}" alt="" class="float-left rounded custom_img" style="width:200px"></a>
                 </td>
                 <td class="text-justify">
                     <br>

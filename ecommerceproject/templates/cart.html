@@ -15,7 +15,7 @@ This is cart page proceed if you are ready to order
         <br>
         <h1 class="text-center my_title">Your Food cart is empty</h1>
         <br>
-        <p class="text-center">Please click <a href="{% url 'shop:allprodcat' %}">Here</a>To continue shopping </p>
+        <p class="text-center">Please click <a href="{% url 'shop:allprodcat' %}" class="btn btn-link btn-sm">Here</a>To continue shopping </p>
 
 
     </div>
@@ -102,7 +102,7 @@ This is cart page proceed if you are ready to order
             <a href="{% url 'shop:allprodcat' %}" class="btn btn-info btn-block btn-sm">Continue Shopping</a>
         </div><br>
         <div class="d-grid gap-2">
-            <a href="https://razorpay.com/" class="btn btn-success btn-block btn-sm">Payment</a>
+            <a href="{% url 'shop:allprodcat' %}" class="btn btn-success btn-block btn-sm">Payment</a>
         </div>
     </div>
 </div>
